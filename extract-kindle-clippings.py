@@ -51,6 +51,7 @@ if not os.path.isdir(outpath):
     # Create output path if it doesn't exist
     os.makedirs(outpath, exist_ok=True)
 
+
 def getvalidfilename(filename):
     import unicodedata
     clean = unicodedata.normalize('NFKD', filename)
@@ -226,7 +227,9 @@ for key in pub_title.keys():
         out.write(titlestr + '\n')
         out.write(('=' * len(titlestr)) + '\n\n')
         if author != 'Unknown':
-            out.write(':authors: ' + author + '\n\n')
+            out.write('Authors:: [[' + author + ']]'+ '\n')
+        out.write('Reading Status:: #read\nRecommended By:: \nTags:: #Books\n# Highlights\n')
+
 
     last_date = datetime.now()
 
@@ -245,8 +248,9 @@ for key in pub_title.keys():
             if short:
                 comment += ' ; ' + author + ' ; ' + title
 
-            out.write(comment + '\n\n')
-            out.write(note + '\n\n')
+            # this adds metadata before each note.
+            # out.write(comment + '\n\n')
+            out.write('    - ' + note + '\n')
         try:
             last_date = parse(note_date)
         except:
@@ -262,5 +266,3 @@ for key in pub_title.keys():
         epoch = datetime(1970, 1, 1, tzinfo=timezone.utc)
     note_timestamp = (last_date - epoch) / timedelta(seconds=1)
     os.utime(outfile, (note_timestamp, note_timestamp))
-
-
