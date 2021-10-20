@@ -228,7 +228,7 @@ for key in pub_title.keys():
         out.write(('=' * len(titlestr)) + '\n\n')
         if author != 'Unknown':
             out.write('Authors:: [[' + author + ']]'+ '\n')
-        out.write('Reading Status:: #read\nRecommended By:: \nTags:: #Books\n# Highlights\n')
+        out.write('Reading Status:: #read\nRecommended By:: \nTags:: [[📚 Books]]\n# Highlights\n')
 
 
     last_date = datetime.now()
