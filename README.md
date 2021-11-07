@@ -1,6 +1,6 @@
 # kindle-clippings-to-obsidian
 
-You can use this Python3 script to easily format all your Kindle Highlights for easy import into (Obsidian)[https://obsidian.md/], a super-charged notetaking app for connected thoughts. Based on [kindle-clippings by Ivzon](https://github.com/lvzon/kindle-clippings).
+You can use this Python3 script to easily format all your Kindle Highlights for easy import into [Obsidian](https://obsidian.md/), a super-charged notetaking app for connected thoughts. Based on [kindle-clippings by Ivzon](https://github.com/lvzon/kindle-clippings).
 
 It creates separate text files for each of your books.
 
