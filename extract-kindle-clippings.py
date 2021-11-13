@@ -38,7 +38,7 @@ else:
 
 if not os.path.isfile(infile):
     username = getpass.getuser()
-    infile = '/media/' + username + '/Kindle/documents/My Clippings.txt'
+    infile = os.path.join('/media', username, 'Kindle', 'documents/My Clippings.txt')
     if not os.path.isfile(infile):
         print('Could not find "My Clippings.txt", please provide the file location as an argument\nUsage: ' + argv[0] + ' <clippings file> [<output directory>]\n')
 
@@ -207,7 +207,7 @@ for key in pub_title.keys():
     else:
         continue            # Skip to next title if there are no new hashes
 
-    outfile = outpath + getvalidfilename(fname)
+    outfile = os.path.join(outpath, getvalidfilename(fname))
 
     newfile = os.path.isfile(outfile)
 
