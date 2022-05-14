@@ -40,7 +40,7 @@ if not os.path.isfile(infile):
     username = getpass.getuser()
     infile = os.path.join('/media', username, 'Kindle', 'documents/My Clippings.txt')
     if not os.path.isfile(infile):
-        print('Could not find "My Clippings.txt", please provide the file location as an argument\nUsage: ' + argv[0] + ' <clippings file> [<output directory>]\n')
+        print('Could not find "My Clippings.txt", please provide the file location as an argument\nUsage: ' + sys.argv[0] + ' <clippings file> [<output directory>]\n')
 
 if len(sys.argv) > 2:
     outpath = sys.argv[2]
