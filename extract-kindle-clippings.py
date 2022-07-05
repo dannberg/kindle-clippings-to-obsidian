@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 '''
 A Python-script to extract and organise highlights and notes from the "My Clippings.txt" file on a Kindle e-reader.
