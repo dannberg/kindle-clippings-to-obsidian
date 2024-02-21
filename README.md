@@ -82,11 +82,9 @@ Because the script only scans the hashes in the comments, you're free to rename,
 - [My Obsidian Meeting Note Template video](https://youtu.be/Ud16HOQoS5Q)
 - [My Obsidian People Note Template video](https://youtu.be/N8K41HDRI3o)
 
-**Other**
+**Additional links**
 - [dannb.org](https://dannb.org)
 - [Monthly newsletter](https://dannb.org/newsletter)
-
-Additional links:
 
 # License
 
