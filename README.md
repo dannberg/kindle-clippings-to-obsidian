@@ -4,6 +4,8 @@ You can use this Python3 script to easily format all your Kindle Highlights for 
 
 It creates separate text files for each of your books.
 
+❗ I use this tool as part of my larger [Obsidian Book Note system](https://dannb.org/blog/2022/recalling-books-youve-read-made-easy/). I've got a few other Obsidian systems documented as well, and I'll link to those as the end of this readme in case anyone is interested.
+
 # Requirements
 - Python 3
 - Terminal
@@ -67,8 +69,28 @@ The script works by scanning `My Clippings.txt` and generating a SHA-256 hash fo
 
 Because the script only scans the hashes in the comments, you're free to rename, move, split, combine, amend and otherwise edit the output files, as long as you keep the comment lines (the lines starting with `..`), keep the files within the output directory (or subdirectories thereof) and keep the `.rst` file extension. You can move comment lines anywhere in the RST-file, and even safely delete or change the actual notes/highlights. You can also safely combine output files from different e-readers or other sources.
 
+# My other Obsidian & Productivity Systems
 
-    Copyright 2021, Dann Berg (dannb.org)
+**Blogs**
+- [Obsidian Daily Note system](https://dannb.org/blog/2022/obsidian-daily-note-template/)
+- [Obsidian People Note system](https://dannb.org/blog/2022/obsidian-people-note-template/)
+- [Obsidian Book Note system](https://dannb.org/blog/2022/recalling-books-youve-read-made-easy/)
+- [Daily Driver Task Management System](https://dannb.org/blog/2020/daily-driver-task-management-system/)
+
+**Videos**
+- [My Obsidian Daily Note Template video](https://youtu.be/v84uSIqqVPQ)
+- [My Obsidian Meeting Note Template video](https://youtu.be/Ud16HOQoS5Q)
+- [My Obsidian People Note Template video](https://youtu.be/N8K41HDRI3o)
+
+**Other**
+- [dannb.org](https://dannb.org)
+- [Monthly newsletter](https://dannb.org/newsletter)
+
+Additional links:
+
+# License
+
+    Copyright 2024, Dann Berg (dannb.org)
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
