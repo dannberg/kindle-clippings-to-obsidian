@@ -16,7 +16,13 @@ It creates separate text files for each of your books.
 
 2. Connect your Kindle to your computer, navigate to the `documents` folder and locate the file `My Clippings.txt`. I like to save this document to my computer, but you can run this script directly from the Kindle if you want. Just make sure you're specifying a local output directory.
 
-3. You'll now want to run the Python script, using your `My Clippings.txt` file as the input. Navigate to the directory where `extract-kindle-clippings.py` lives, and run the following command in your Terminal:
+3. You'll now want to run the Python script, using your `My Clippings.txt` file as the input. Navigate to the directory where `extract-kindle-clippings.py` lives, and run the following commands in your Terminal.
+
+First, make the script executable:
+
+`chmod +x extract-kindle-clippings.py`
+
+Then, run the script, including both the past of your txt document and an output directory:
 
 `./extract-kindle-clippings.py [<path to My Clippings.txt file>] [<output directory>]`
 
