@@ -87,11 +87,11 @@ print('Scanning output dir', outpath)
 for directory, subdirlist, filelist in os.walk(outpath):
     for fname in filelist:
         ext = fname[-4:]
-        if ext == '.rst' or ext == '.RST':
-            print('Found RST file', fname, 'in directory', directory)
-            # open file, find commend lines, store hashes
-            rst = open(directory + '/' + fname, 'r')
-            line = rst.readline()
+        if ext == '.md' or ext == '.MD':
+            print('Found Markdown file', fname, 'in directory', directory)
+            # open file, find comment lines, store hashes
+            md = open(directory + '/' + fname, 'r')
+            line = md.readline()
             lines = 0
             hashes = 0
             while line:
@@ -101,11 +101,11 @@ for directory, subdirlist, filelist in os.walk(outpath):
                     foundhash = findhash_result[0]
                     existing_hashes[foundhash] = fname
                     hashes += 1
-                line = rst.readline()
-            rst.close()
+                line = md.readline()
+            md.close()
             print(hashes, 'hashes found in', lines, 'scanned lines')
         else:
-            print('File', fname, 'does not seem to be RST, skipping', ext)
+            print('File', fname, 'does not seem to be Markdown, skipping', ext)
 
 print('Found', len(existing_hashes), 'existing note hashes')
 print('Processing clippings file', infile)
@@ -191,10 +191,10 @@ for key in pub_title.keys():
     if len(short_title) > 128:
         short_title = short_title[:127]
     if (nr_notes > 2):
-        fname = author + ' - ' + short_title.strip() + '.rst'
+        fname = author + ' - ' + short_title.strip() + '.md'
         short = 0
     else:
-        fname = 'short_notes.rst'
+        fname = 'short_notes.md'
         short = 1
 
     new_hashes = 0
