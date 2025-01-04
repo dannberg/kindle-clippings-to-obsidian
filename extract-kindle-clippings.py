@@ -5,7 +5,7 @@ A Python-script that extracts and organises highlights/notes from the "My Clippi
 
 Usage: ./extract-kindle-clippings.py <My Clippings.txt file> -o [<optional: output directory>]
 
-Githubrepository: https://github.com/dannberg/kindle-clippings-to-obsidian
+Github repository: https://github.com/dannberg/kindle-clippings-to-obsidian
 
     Copyright 2025, Dann Berg (dannb.org)
 
