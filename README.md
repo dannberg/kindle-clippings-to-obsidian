@@ -24,13 +24,21 @@ First, make the script executable:
 
 Then, run the script, including both the past of your txt document and an output directory:
 
-`./extract-kindle-clippings.py [<path to My Clippings.txt file>] [<output directory>]`
+`./extract-kindle-clippings.py [<path to My Clippings.txt file>] -o [<output directory>]`
 
 Example:
 
-`./extract-kindle-clippings.py /Users/dannberg/Desktop/Temp/My\ Clippings.txt /Users/dannberg/Desktop/Temp/clippings/`
+`./extract-kindle-clippings.py /Users/dannberg/Desktop/Temp/My\ Clippings.txt -o /Users/dannberg/Desktop/Temp/clippings/`
 
-If either the input file or output directory is not specified, the default input file is `./My Clippings.txt` or `/media/$USER/Kindle/documents/My Clippings.txt`. The default output directory is `./clippings/`.
+If either the input file is not specified, the default input file is `./My Clippings.txt` or `/media/$USER/Kindle/documents/My Clippings.txt`.
+
+If an output flag and directory is not specified, the default output directory is `clippings/` in the current directory. If `clippings/` does not exist, it will be created.
+
+After running the script, you'll be presented with a list of all books found in your clippings file. You can:
+- Enter `0` to process all books
+- Enter a single number to process one specific book
+- Enter multiple numbers separated by spaces to process several books
+- If `0` is included with other numbers, all books will be processed
 
 4. Navigate to the new `clippings` directory, open the text file of the book you want, and copy/paste into Obsidian.
 
@@ -71,9 +79,9 @@ This script requires Python 3 and is written for use on Linux, Mac, BSD and othe
 
 # How it works
 
-The script works by scanning `My Clippings.txt` and generating a SHA-256 hash for each note, which is stored in the output file comments. When the script is run, it scans all RST-files in the output directory for hashes, and only writes the notes and highlights which weren't found in the output directory. Publications which have only one or two notes/highlights don't get their own output file, but the notes/highlights are appended to `short_notes.rst`, together with the author and title of the publication. Each output file is given the time and date of the most recent note/highlight.
+The script works by scanning `My Clippings.txt` and generating a SHA-256 hash for each note, which is stored in the output file comments. When the script is run, it scans all Markdown files in the output directory for hashes, and only writes the notes and highlights which weren't found in the output directory. Publications which have only one or two notes/highlights don't get their own output file, but the notes/highlights are appended to `short_notes.md`, together with the author and title of the publication. Each output file is given the time and date of the most recent note/highlight.
 
-Because the script only scans the hashes in the comments, you're free to rename, move, split, combine, amend and otherwise edit the output files, as long as you keep the comment lines (the lines starting with `..`), keep the files within the output directory (or subdirectories thereof) and keep the `.rst` file extension. You can move comment lines anywhere in the RST-file, and even safely delete or change the actual notes/highlights. You can also safely combine output files from different e-readers or other sources.
+Because the script only scans the hashes in the comments, you're free to rename, move, split, combine, amend and otherwise edit the output files, as long as you keep the comment lines (the lines starting with `..`), keep the files within the output directory (or subdirectories thereof) and keep the `.md` file extension. You can move comment lines anywhere in the RST-file, and even safely delete or change the actual notes/highlights. You can also safely combine output files from different e-readers or other sources.
 
 # My other Obsidian & Productivity Systems
 

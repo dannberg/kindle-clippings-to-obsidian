@@ -30,33 +30,38 @@ import os
 from datetime import datetime, timedelta, timezone
 import getpass
 import sys
+import argparse
 
-if len(sys.argv) > 1:
-    infile = sys.argv[1]
-else:
-    infile = 'My Clippings.txt'
+def parse_args():
+    parser = argparse.ArgumentParser(
+        description='Extract and organize highlights and notes from Kindle "My Clippings.txt" file'
+    )
+    parser.add_argument('input_file', nargs='?', default='My Clippings.txt',
+                      help='Path to My Clippings.txt file (default: My Clippings.txt)')
+    parser.add_argument('-o', '--output', default='.',
+                      help='Output directory (default: current directory)')
+    return parser.parse_args()
 
+args = parse_args()
+infile = args.input_file
+outpath = args.output
+
+# Check if input file exists
 if not os.path.isfile(infile):
     username = getpass.getuser()
     infile = os.path.join('/media', username, 'Kindle', 'documents/My Clippings.txt')
     if not os.path.isfile(infile):
-        print('Could not find "My Clippings.txt", please provide the file location as an argument\nUsage: ' + sys.argv[0] + ' <clippings file> [<output directory>]\n')
+        print('Could not find "My Clippings.txt", please provide the file location as an argument')
+        sys.exit(1)
 
-if len(sys.argv) > 2:
-    outpath = sys.argv[2]
-else:
-    outpath = 'clippings/'
-
+# Create output directory if it doesn't exist
 if not os.path.isdir(outpath):
-    # Create output path if it doesn't exist
     os.makedirs(outpath, exist_ok=True)
-
 
 def getvalidfilename(filename):
     import unicodedata
     clean = unicodedata.normalize('NFKD', filename)
     return re.sub('[^\w\s()\'.?!:-]', '', clean)
-
 
 note_sep = '=========='
 
@@ -69,7 +74,6 @@ regex_page = re.compile('Page ([\d\-]+)')
 regex_date = re.compile('Added on\s+(.+)$')
 
 regex_hashline = re.compile('^\.\.\s*([a-fA-F0-9]+)' + '\s*')
-
 
 pub_title = {}
 pub_author = {}
@@ -181,7 +185,50 @@ while line:
 
 mc.close()
 
+def get_user_book_selection(titles):
+    # Create a sorted list of unique titles
+    unique_titles = sorted(list(set(titles.values())))
+    
+    print("\nSelect a book (or books) to output:")
+    print("[0]: All books")
+    for i, title in enumerate(unique_titles, 1):
+        print(f"[{i}]: {title}")
+    
+    while True:
+        try:
+            selection = input("\nInput one or more numbers, separated by a space: ").strip()
+            numbers = [int(num) for num in selection.split()]
+            
+            # Validate input
+            if not numbers:
+                print("Please enter at least one number")
+                continue
+                
+            # Check if 0 is selected
+            if 0 in numbers:
+                return unique_titles
+                
+            # Validate range of numbers
+            if any(num < 0 or num > len(unique_titles) for num in numbers):
+                print(f"Please enter numbers between 0 and {len(unique_titles)}")
+                continue
+                
+            # Return selected titles
+            return [unique_titles[num-1] for num in numbers]
+            
+        except ValueError:
+            print("Please enter valid numbers separated by spaces")
+            continue
+
+# Get user selection
+selected_titles = get_user_book_selection(pub_title)
+
+# Modify the main processing loop to only process selected books
 for key in pub_title.keys():
+    # Skip if this book wasn't selected
+    if pub_title[key] not in selected_titles:
+        continue
+        
     nr_notes = len(pub_notes[key])
     author = pub_author[key]
     title = pub_title[key]
