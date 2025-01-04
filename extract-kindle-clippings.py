@@ -30,33 +30,38 @@ import os
 from datetime import datetime, timedelta, timezone
 import getpass
 import sys
+import argparse
 
-if len(sys.argv) > 1:
-    infile = sys.argv[1]
-else:
-    infile = 'My Clippings.txt'
+def parse_args():
+    parser = argparse.ArgumentParser(
+        description='Extract and organize highlights and notes from Kindle "My Clippings.txt" file'
+    )
+    parser.add_argument('input_file', nargs='?', default='My Clippings.txt',
+                      help='Path to My Clippings.txt file (default: My Clippings.txt)')
+    parser.add_argument('-o', '--output', default='.',
+                      help='Output directory (default: current directory)')
+    return parser.parse_args()
 
+args = parse_args()
+infile = args.input_file
+outpath = args.output
+
+# Check if input file exists
 if not os.path.isfile(infile):
     username = getpass.getuser()
     infile = os.path.join('/media', username, 'Kindle', 'documents/My Clippings.txt')
     if not os.path.isfile(infile):
-        print('Could not find "My Clippings.txt", please provide the file location as an argument\nUsage: ' + sys.argv[0] + ' <clippings file> [<output directory>]\n')
+        print('Could not find "My Clippings.txt", please provide the file location as an argument')
+        sys.exit(1)
 
-if len(sys.argv) > 2:
-    outpath = sys.argv[2]
-else:
-    outpath = 'clippings/'
-
+# Create output directory if it doesn't exist
 if not os.path.isdir(outpath):
-    # Create output path if it doesn't exist
     os.makedirs(outpath, exist_ok=True)
-
 
 def getvalidfilename(filename):
     import unicodedata
     clean = unicodedata.normalize('NFKD', filename)
     return re.sub('[^\w\s()\'.?!:-]', '', clean)
-
 
 note_sep = '=========='
 
@@ -69,7 +74,6 @@ regex_page = re.compile('Page ([\d\-]+)')
 regex_date = re.compile('Added on\s+(.+)$')
 
 regex_hashline = re.compile('^\.\.\s*([a-fA-F0-9]+)' + '\s*')
-
 
 pub_title = {}
 pub_author = {}
