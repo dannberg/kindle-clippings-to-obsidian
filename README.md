@@ -30,7 +30,7 @@ Example:
 
 `./extract-kindle-clippings.py /Users/dannberg/Desktop/Temp/My\ Clippings.txt -o /Users/dannberg/Desktop/Temp/clippings/`
 
-If either the input file is not specified, the default input file is `./My Clippings.txt` or `/media/$USER/Kindle/documents/My Clippings.txt`.
+If the input file is not specified, the default input file is `./My Clippings.txt` or `/media/$USER/Kindle/documents/My Clippings.txt`.
 
 If an output flag and directory is not specified, the default output directory is `clippings/` in the current directory. If `clippings/` does not exist, it will be created.
 
