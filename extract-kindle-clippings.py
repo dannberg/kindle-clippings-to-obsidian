@@ -185,7 +185,50 @@ while line:
 
 mc.close()
 
+def get_user_book_selection(titles):
+    # Create a sorted list of unique titles
+    unique_titles = sorted(list(set(titles.values())))
+    
+    print("\nSelect a book (or books) to output:")
+    print("[0]: All books")
+    for i, title in enumerate(unique_titles, 1):
+        print(f"[{i}]: {title}")
+    
+    while True:
+        try:
+            selection = input("\nInput one or more numbers, separated by a space: ").strip()
+            numbers = [int(num) for num in selection.split()]
+            
+            # Validate input
+            if not numbers:
+                print("Please enter at least one number")
+                continue
+                
+            # Check if 0 is selected
+            if 0 in numbers:
+                return unique_titles
+                
+            # Validate range of numbers
+            if any(num < 0 or num > len(unique_titles) for num in numbers):
+                print(f"Please enter numbers between 0 and {len(unique_titles)}")
+                continue
+                
+            # Return selected titles
+            return [unique_titles[num-1] for num in numbers]
+            
+        except ValueError:
+            print("Please enter valid numbers separated by spaces")
+            continue
+
+# Get user selection
+selected_titles = get_user_book_selection(pub_title)
+
+# Modify the main processing loop to only process selected books
 for key in pub_title.keys():
+    # Skip if this book wasn't selected
+    if pub_title[key] not in selected_titles:
+        continue
+        
     nr_notes = len(pub_notes[key])
     author = pub_author[key]
     title = pub_title[key]
