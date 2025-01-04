@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 
 '''
-A Python-script to extract and organise highlights and notes from the "My Clippings.txt" file on a Kindle e-reader.
+A Python-script that extracts and organises highlights/notes from the "My Clippings.txt" file on a Kindle e-reader. Formats for Obsidian.
 
-Usage: extract-kindle-clippings.py <My Clippings.txt file> [<output directory>]
+Usage: ./extract-kindle-clippings.py <My Clippings.txt file> -o [<optional: output directory>]
 
-GIT-repository at: https://github.com/lvzon/kindle-clippings
+Githubrepository: https://github.com/dannberg/kindle-clippings-to-obsidian
 
-    Copyright 2018, Levien van Zon (gnuritas.org)
+    Copyright 2025, Dann Berg (dannb.org)
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
