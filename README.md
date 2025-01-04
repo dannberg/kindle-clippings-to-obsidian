@@ -102,7 +102,7 @@ Because the script only scans the hashes in the comments, you're free to rename,
 
 # License
 
-    Copyright 2024, Dann Berg (dannb.org)
+    Copyright 2025, Dann Berg (dannb.org)
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
