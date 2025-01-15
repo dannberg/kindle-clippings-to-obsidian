@@ -22,7 +22,7 @@ First, make the script executable:
 
 `chmod +x extract-kindle-clippings.py`
 
-Then, run the script, including both the past of your txt document and an output directory:
+Then, run the script, including both the path of your txt document and an output directory:
 
 `./extract-kindle-clippings.py [<path to My Clippings.txt file>] -o [<output directory>]`
 
