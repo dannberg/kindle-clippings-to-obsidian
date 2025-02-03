@@ -18,6 +18,8 @@ It creates separate text files for each of your books.
 
 3. You'll now want to run the Python script, using your `My Clippings.txt` file as the input. Navigate to the directory where `extract-kindle-clippings.py` lives, and run the following commands in your Terminal.
 
+# Note: This works only on linux, Use Wsl maybe. Also take care from the random libraries python 
+
 First, make the script executable:
 
 `chmod +x extract-kindle-clippings.py`
