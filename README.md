@@ -100,6 +100,10 @@ Because the script only scans the hashes in the comments, you're free to rename,
 - [dannb.org](https://dannb.org)
 - [Monthly newsletter](https://dannb.org/newsletter)
 
+# Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=dannberg/kindle-clippings-to-obsidian&type=Date)](https://star-history.com/#dannberg/kindle-clippings-to-obsidian&Date)
+
 # License
 
     Copyright 2025, Dann Berg (dannb.org)
