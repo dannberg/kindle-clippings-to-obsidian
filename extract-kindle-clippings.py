@@ -90,8 +90,8 @@ existing_hashes = {}
 print('Scanning output dir', outpath)
 for directory, subdirlist, filelist in os.walk(outpath):
     for fname in filelist:
-        ext = fname[-4:]
-        if ext == '.md' or ext == '.MD':
+        _, ext = os.path.splitext(fname)
+        if ext.lower() == '.md':
             print('Found Markdown file', fname, 'in directory', directory)
             # open file, find comment lines, store hashes
             md = open(directory + '/' + fname, 'r')
