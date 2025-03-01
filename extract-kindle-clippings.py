@@ -38,8 +38,8 @@ def parse_args():
     )
     parser.add_argument('input_file', nargs='?', default='My Clippings.txt',
                       help='Path to My Clippings.txt file (default: My Clippings.txt)')
-    parser.add_argument('-o', '--output', default='.',
-                      help='Output directory (default: current directory)')
+    parser.add_argument('-o', '--output', default='./clippings',
+                      help='Output directory (default: ./clippings)')
     return parser.parse_args()
 
 args = parse_args()
