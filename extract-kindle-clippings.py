@@ -31,6 +31,15 @@ from datetime import datetime, timedelta, timezone
 import getpass
 import sys
 import argparse
+import json
+
+
+LANGUAGES = {
+    "english": "en",
+    "spanish": "es",
+}
+
+
 
 def parse_args():
     parser = argparse.ArgumentParser(
@@ -40,6 +49,8 @@ def parse_args():
                       help='Path to My Clippings.txt file (default: My Clippings.txt)')
     parser.add_argument('-o', '--output', default='./clippings',
                       help='Output directory (default: ./clippings)')
+    parser.add_argument("-l", "--language", default="english", choices=LANGUAGES.keys(),
+                        help="Select Kindle OS language (english, spanish)")
     return parser.parse_args()
 
 args = parse_args()
@@ -58,22 +69,36 @@ if not os.path.isfile(infile):
 if not os.path.isdir(outpath):
     os.makedirs(outpath, exist_ok=True)
 
+
+# Select keywords used by Kindle OS according to language
+lang_code = LANGUAGES[args.language]
+locale_path = f"languages/{lang_code}.json"
+if os.path.exists(locale_path):
+    with open(locale_path, "r", encoding="utf-8") as file:
+        translations = json.load(file)
+else:
+    translations = {}
+
+# Translation function.
+def _(text):
+    return translations.get(text, text)
+
+
 def getvalidfilename(filename):
     import unicodedata
     clean = unicodedata.normalize('NFKD', filename)
-    return re.sub('[^\w\s()\'.?!:-]', '', clean)
+    return re.sub(r'[^\w\s()\'.?!:-]', '', clean)
 
 note_sep = '=========='
 
 commentstr = '.. '  # RST (reStructuredText) comment
+regex_title = re.compile(r'^(.*)\((.*)\)$')
+regex_info = re.compile(rf'^- (\S+) (.*)[\s|]+{_("Added on")}\s+(.+)$')
+regex_loc = re.compile(rf'{_("Loc")}\. ([\d\-]+)')
+regex_page = re.compile(rf'{_("Page")} ([\d\-]+)')
+regex_date = re.compile(r'Added on\s+(.+)$')
 
-regex_title = re.compile('^(.*)\((.*)\)$')
-regex_info = re.compile(r'^- (\S+) (.*)[\s|]+Added on\s+(.+)$')
-regex_loc = re.compile('Loc\. ([\d\-]+)')
-regex_page = re.compile('Page ([\d\-]+)')
-regex_date = re.compile('Added on\s+(.+)$')
-
-regex_hashline = re.compile('^\.\.\s*([a-fA-F0-9]+)' + '\s*')
+regex_hashline = re.compile(r'^\.\.\s*([a-fA-F0-9]+)' + r'\s*')
 
 pub_title = {}
 pub_author = {}
@@ -125,7 +150,11 @@ while line:
     key = line.strip()
     result_title = regex_title.findall(key)    # Extract title and author
     line = mc.readline().strip()                # Read information line
-    note_type, location, date = regex_info.findall(line)[0]    # Extract note type, location and date
+    try:
+        note_type, location, date = regex_info.findall(line)[0]    # Extract note type, location and date
+    except IndexError:
+        print("Unable to parse clippings file. Check if your Kindle OS language is other than English.")
+        quit(0)
     result_loc = regex_loc.findall(location)
     result_page = regex_page.findall(location)
     if len(result_title):
