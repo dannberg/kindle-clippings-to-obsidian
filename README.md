@@ -1,6 +1,25 @@
+## Changelog: Windows Compatibility Patch
+
+Fixed Filesystem Crash (Invalid Characters):
+
+Issue: Windows (NTFS) does not allow colons (:) or question marks (?) in filenames, causing the script to crash when processing books with subtitles (e.g., "Atomic Habits: An Easy & Proven Way...").
+
+Fix: Updated the getvalidfilename regex to strictly strip these characters before file creation.
+
+Fixed Text Encoding (Garbled Characters):
+
+Issue: Windows defaults to cp1252 (ANSI) encoding, which caused emojis, smart quotes, and foreign languages to appear as random symbols (e.g., â€œ).
+
+Fix: Enforced encoding='utf-8' on all file read/write operations (open()), ensuring compatibility with Kindle's raw text and Obsidian's Markdown format.
+
+**Documentation Update:**
+
+Added Windows-specific usage examples to the file header, including correct quoting for paths with spaces and handling of backslashes.
+
 # Kindle Clippings to Obsidian
 
 ![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg) ![Python 3.6+](https://img.shields.io/badge/python-3.6+-blue.svg) ![Obsidian](https://img.shields.io/badge/Obsidian-Compatible-purple.svg)
+# Modified by Dhari Al-Otaibi (2026) for Windows Compatibility
 
 A Python script that extracts your Kindle highlights and notes, formatting them beautifully for [Obsidian](https://obsidian.md/), a powerful knowledge management app.
 
