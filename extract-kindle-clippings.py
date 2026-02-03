@@ -3,9 +3,18 @@
 '''
 A Python-script that extracts and organises highlights/notes from the "My Clippings.txt" file on a Kindle e-reader. Formats for Obsidian.
 
-Usage: ./extract-kindle-clippings.py <My Clippings.txt file> -o [<optional: output directory>]
+Usage: 
+    python extract-kindle-clippings.py "<path_to_clippings_file>" -o "<path_to_output_directory>"
 
-Github repository: https://github.com/dannberg/kindle-clippings-to-obsidian
+Windows Example:
+    python extract-kindle-clippings.py "C:\Users\Name\Documents\My Clippings.txt" -o "C:\Users\Name\Documents\ObsidianVault"
+
+Note for Windows users: 
+    When specifying the output directory (-o), do NOT end the path with a backslash (e.g., use "Folder" instead of "Folder\"), 
+    otherwise the command line may misinterpret the closing quote.
+
+Original Github repository: https://github.com/dannberg/kindle-clippings-to-obsidian
+Forked-windows-version: https://github.com/dhari-exe/kindle-clippings-to-obsidian/tree/master
 
     Copyright 2025, Dann Berg (dannb.org)
 
@@ -21,6 +30,8 @@ Github repository: https://github.com/dannberg/kindle-clippings-to-obsidian
 
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+    
+    ## Modified by Dhari Al-Otaibi (2026) for Windows Compatibility
 '''
 
 import re
@@ -61,7 +72,8 @@ if not os.path.isdir(outpath):
 def getvalidfilename(filename):
     import unicodedata
     clean = unicodedata.normalize('NFKD', filename)
-    return re.sub('[^\w\s()\'.?!:-]', '', clean)
+    return re.sub('[^\w\s()\'.!-]', '', clean) 
+# Removed ? and : from the regex
 
 note_sep = '=========='
 
@@ -114,7 +126,7 @@ for directory, subdirlist, filelist in os.walk(outpath):
 print('Found', len(existing_hashes), 'existing note hashes')
 print('Processing clippings file', infile)
 
-mc = open(infile, 'r')
+mc = open(infile, 'r', encoding='utf-8')
 
 mc.read(1)  # Skip first character
 
@@ -180,6 +192,7 @@ while line:
     locations[note_hash] = locstr
     types[note_hash] = note_type
     dates[note_hash] = datestr
+
 
     line = mc.readline().strip()
 
@@ -258,7 +271,7 @@ for key in pub_title.keys():
 
     newfile = os.path.isfile(outfile)
 
-    out = open(outfile, 'a')
+    out = open(outfile, 'a', encoding='utf-8')
 
     if short:
         # Short note, output a small header and append to short note file
